@@ -10,7 +10,6 @@ struct vaikas{
     string vard;
     string pav;
     int egz; // egzamino rez.
-    int ndkiekis = 0; // namu darbu pazymiu kiekis
     vector<int> ndrez;// namų darbų rez.
 };
 void ivedimas(vaikas Masyvas[], int n)
@@ -24,9 +23,9 @@ void ivedimas(vaikas Masyvas[], int n)
         cout << "Iveskite vaiko egzamino rezultata: ";
         cin >> Masyvas[i].egz;
         string pasirinkti;
-        cout << "Pasirinkite ar nau darbu rezultatus ivedinesite ranka, ar juos sugeneruos kompiuteris? Jeigu ivedinesite ranka rasykite: taip, jei tai atliks kompiuteris, rasykite: ne" << endl;
+        cout << "Pasirinkite ar nau darbu rezultatus ivedinesite ranka, ar juos sugeneruos kompiuteris? Jeigu ivedinesite ranka rasykite: t, jei tai atliks kompiuteris, rasykite: n" << endl;
         cin >> pasirinkti;
-        if(pasirinkti == "taip"){
+        if(pasirinkti == "t"){
             while(true) // ivesti arba randominiai skaiciai sukeliami i vektoriaus pabaiga
             {
             cout << "Iveskite namu darbo pazymi, jeigu daugiau pazymiu nera, iveskite -1: " << endl;
@@ -34,10 +33,9 @@ void ivedimas(vaikas Masyvas[], int n)
             if(nd == -1){
                 break;
                 }
-            Masyvas[i].ndkiekis += 1;
             Masyvas[i].ndrez.push_back(nd);
             }
-            if(Masyvas[i].ndkiekis==0)
+            if(Masyvas[i].ndrez.size()<1)
             {
                 cout << "Mokinys neturi nei vieno namu darbu pazymio" << endl;
             }
@@ -46,18 +44,10 @@ void ivedimas(vaikas Masyvas[], int n)
         {
 
             for(int z=0; z<(rand()%10+1); z++){
-            Masyvas[i].ndkiekis += 1;
             Masyvas[i].ndrez.push_back(rand()%10+1);
             }
             }
         }
-}
-int sum(vector<int> labas, int n){ // sumos funkcija
-    int visindrez = 0;
-    for(int i=0; i<n; i++){
-        visindrez += labas[i];
-    }
-    return visindrez;
 }
 double vidurkis(double visindrez, int m) // vidurkio funkcija
 {
@@ -69,21 +59,25 @@ double vidurkis(double visindrez, int m) // vidurkio funkcija
 }
 double median(vaikas Masyvas, int n){ // medianos funkcija
     double mediana;
-    if(Masyvas.ndkiekis==0){
+    if(Masyvas.ndrez.size()==0){
         mediana=0;
     }
     else{
-        if(Masyvas.ndkiekis%2==0)
+        if(Masyvas.ndrez.size()%2==0)
         {
-            int k = Masyvas.ndkiekis/2;
+            int k = Masyvas.ndrez.size()/2;
             mediana=(Masyvas.ndrez[k]+Masyvas.ndrez[k-1])/2.0;
         }
         else
-            mediana = Masyvas.ndrez[Masyvas.ndkiekis/2];
+            mediana = Masyvas.ndrez[Masyvas.ndrez.size()/2];
     }
     return mediana;
 }
-
+double galutinis(double a, double b){
+    double gpaz;
+    gpaz = (0.4*a)+(0.6*b);
+    return gpaz;
+}
 void isvedimas(vaikas Masyvas[], int n){
     cout << left << setw(15) << "Vardas" << left << setw(15) << "pavarde" << left << setw(15) <<"Galutinis (Vid.)" << " / " << setw(15) << "Galutinis (Med.)" << endl;
     for(int k=0; k<60; k++){
@@ -92,14 +86,17 @@ void isvedimas(vaikas Masyvas[], int n){
     cout << endl;
     for(int i=0; i<n; i++){
 
+        double suma; // vektoriaus elementu suma
+        suma = accumulate(Masyvas[i].ndrez.begin(), Masyvas[i].ndrez.end(), 0);
         sort(Masyvas[i].ndrez.begin(), Masyvas[i].ndrez.end());
-        cout << left << setw(15) << Masyvas[i].vard << left << setw(15) << Masyvas[i].pav << left << setw(15) << fixed << setprecision(2) << vidurkis(sum(Masyvas[i].ndrez, Masyvas[i].ndkiekis), Masyvas[i].ndkiekis)<< left << setw(15) << median(Masyvas[i], Masyvas[i].ndkiekis) << endl;
+        cout << left << setw(15) << Masyvas[i].vard << left << setw(15) << Masyvas[i].pav << left << setw(15) << fixed << setprecision(2) << galutinis(vidurkis(suma, Masyvas[i].ndrez.size()), Masyvas[i].egz)<< left << setw(15) << galutinis(median(Masyvas[i], Masyvas[i].ndrez.size()), Masyvas[i].egz) << endl;
     }
 }
 int main()
 {
     int n; // n - mokiniu skaicius, nd - namų darbų pažymys
-    vaikas A[10]; // strukturos masyvas
+    vaikas A[10];
+    //vector<vaikas> A(10); // vektoriaus strukturos
     cout << "Iveskite vaiku kieki: ";
     cin >> n;
     ivedimas(A, n);
