@@ -1,0 +1,4 @@
+cmake_minimum_required(VERSION 3.25)
+project(1.0)
+include_directories(include)
+add_executable(<name> [WIN32] [EXCLUDE_FROM_ALL] [F] [main])
