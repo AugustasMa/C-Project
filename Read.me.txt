@@ -1,0 +1,3 @@
+1.0 Versijoje mes visus žingsnius kartojame kaip ir prieš tai,
+tačiau išvedame, į naują failą, tik vargšiukus.
+Likę studentai yra paduodami atgal į pradinį sugeneruotą failą.
