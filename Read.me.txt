@@ -1,3 +1,21 @@
 1.0 Versijoje mes visus žingsnius kartojame kaip ir prieš tai,
 tačiau išvedame, į naują failą, tik vargšiukus.
 Likę studentai yra paduodami atgal į pradinį sugeneruotą failą.
+
+----------------------------------LAIKO TESTAVIMAS-----------------------------------------
+
+Vykdant programą su pirmaja strategija:
+
+100000 studentų
+Duomenu isvedimas i du failus su listu, naudojant pirmaja strategija, uztruko: 4.01525 s
+
+1000000 studentų
+Duomenu isvedimas i du failus su listu, naudojant pirmaja strategija, uztruko: 16.7241 s
+
+Vykdant programa su antraja strategija:
+
+100000 studentų
+Duomenu isvedimas i du failus su listu uztruko: 0.912814 s
+
+1000000 studentų
+Duomenu isvedimas i du failus su listu uztruko2: 9.03488 s
